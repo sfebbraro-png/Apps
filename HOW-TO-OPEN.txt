@@ -1,0 +1,29 @@
+BP Recorder - How to open the app
+=================================
+
+You do NOT need GitHub.
+
+1. Download or save the file named:
+   BP-Recorder.html
+
+2. Put it somewhere easy to find, such as:
+   - Desktop
+   - Downloads
+
+3. Double-click BP-Recorder.html
+
+4. It should open in your web browser (Chrome, Edge, Safari, or Firefox).
+
+That is the app.
+
+Tips
+----
+- Keep the file. Your readings are saved in the browser on this computer.
+- You need an internet connection the first time so the chart library can load.
+- To back up your readings, use the Export CSV button inside the app.
+- Do NOT type https://index.html into the browser. Just double-click the file.
+
+If double-click does not open it:
+- Right-click BP-Recorder.html
+- Choose Open With
+- Select Chrome, Edge, Safari, or Firefox

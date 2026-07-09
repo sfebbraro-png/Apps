@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BP Recorder</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+  <style>
+:root {
+  --bg: #f4f7fb;
+  --panel: #ffffff;
+  --text: #1f2937;
+  --muted: #6b7280;
+  --border: #e5e7eb;
+  --primary: #0f766e;
+  --primary-hover: #0d9488;
+  --danger: #b91c1c;
+  --shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+  --radius: 16px;
+
+  --aha-normal: #00a651;
+  --aha-elevated: #f6c344;
+  --aha-stage1: #f7941d;
+  --aha-stage2: #ed1c24;
+  --aha-crisis: #9b0000;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at top left, rgba(15, 118, 110, 0.08), transparent 28%),
+    radial-gradient(circle at top right, rgba(237, 28, 36, 0.06), transparent 24%),
+    var(--bg);
+  min-height: 100vh;
+}
+
+.app {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px 16px 48px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 2rem;
+  letter-spacing: -0.03em;
+}
+
+.subtitle {
+  margin: 6px 0 0;
+  color: var(--muted);
+}
+
+.header-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.stat-card,
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.stat-card {
+  padding: 18px;
+}
+
+.stat-card h2,
+.panel h2 {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.stat-value {
+  margin: 10px 0 4px;
+  font-size: 1.8rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.stat-meta {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.main-grid {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  gap: 18px;
+  margin-bottom: 18px;
+}
+
+.panel {
+  padding: 18px;
+  margin-bottom: 18px;
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.form-row.triple {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+input[type="date"],
+input[type="time"],
+input[type="number"],
+input[type="text"] {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 12px;
+  font: inherit;
+  background: #fff;
+}
+
+input:focus {
+  outline: 2px solid rgba(15, 118, 110, 0.25);
+  border-color: var(--primary);
+}
+
+.btn {
+  border: none;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.btn-primary {
+  width: 100%;
+  background: var(--primary);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: var(--primary-hover);
+}
+
+.btn-secondary {
+  background: #eef2ff;
+  color: #312e81;
+}
+
+.btn-secondary:hover {
+  background: #e0e7ff;
+}
+
+.btn-danger {
+  background: #fee2e2;
+  color: var(--danger);
+}
+
+.btn-danger:hover {
+  background: #fecaca;
+}
+
+.btn-small {
+  padding: 7px 10px;
+  font-size: 0.85rem;
+}
+
+.file-btn {
+  cursor: pointer;
+}
+
+.category-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: #fff;
+  text-align: center;
+}
+
+.category-badge.muted {
+  background: #e5e7eb;
+  color: var(--muted);
+}
+
+.chart-wrap {
+  position: relative;
+  height: 320px;
+}
+
+.aha-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+}
+
+.aha-card {
+  border-radius: 12px;
+  padding: 12px;
+  color: #fff;
+  min-height: 110px;
+}
+
+.aha-card h3 {
+  margin: 0 0 8px;
+  font-size: 0.95rem;
+}
+
+.aha-card p {
+  margin: 0;
+  font-size: 0.82rem;
+  line-height: 1.35;
+  opacity: 0.95;
+}
+
+.disclaimer {
+  margin: 14px 0 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+  line-height: 1.45;
+}
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 12px 10px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+th {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+.empty-row td {
+  text-align: center;
+  color: var(--muted);
+  padding: 28px 10px;
+}
+
+.category-pill {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.delete-btn {
+  background: transparent;
+  border: none;
+  color: var(--danger);
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.toast {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  background: #111827;
+  color: #fff;
+  padding: 12px 16px;
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+  opacity: 0;
+  transform: translateY(8px);
+  transition: 0.2s ease;
+  z-index: 50;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 900px) {
+  .stats,
+  .main-grid,
+  .aha-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .header {
+    flex-direction: column;
+  }
+
+  .chart-wrap {
+    height: 280px;
+  }
+}
+
+  </style>
+</head>
+<body>
+<div class="app">
+    <header class="header">
+      <div>
+        <h1>BP Recorder</h1>
+        <p class="subtitle">Track blood pressure &amp; pulse with AHA guidelines</p>
+      </div>
+      <div class="header-actions">
+        <button type="button" id="exportBtn" class="btn btn-secondary">Export CSV</button>
+        <label class="btn btn-secondary file-btn">
+          Import CSV
+          <input type="file" id="importInput" accept=".csv,text/csv" hidden />
+        </label>
+      </div>
+    </header>
+
+    <section class="stats" aria-label="Running averages">
+      <article class="stat-card">
+        <h2>Running Average BP</h2>
+        <p id="avgBp" class="stat-value">—</p>
+        <p id="avgBpCategory" class="stat-meta">No readings yet</p>
+      </article>
+      <article class="stat-card">
+        <h2>Running Average Pulse</h2>
+        <p id="avgPulse" class="stat-value">—</p>
+        <p class="stat-meta">beats per minute</p>
+      </article>
+      <article class="stat-card">
+        <h2>Total Readings</h2>
+        <p id="totalReadings" class="stat-value">0</p>
+        <p id="dateRange" class="stat-meta">Add your first reading</p>
+      </article>
+    </section>
+
+    <div class="main-grid">
+      <section class="panel">
+        <h2>Add Reading</h2>
+        <form id="bpForm" novalidate>
+          <div class="form-row">
+            <label for="readingDate">Date</label>
+            <input type="date" id="readingDate" required />
+          </div>
+          <div class="form-row">
+            <label for="readingTime">Time</label>
+            <input type="time" id="readingTime" required />
+          </div>
+          <div class="form-row triple">
+            <div>
+              <label for="systolic">Systolic</label>
+              <input type="number" id="systolic" min="50" max="300" step="1" placeholder="120" required />
+            </div>
+            <div>
+              <label for="diastolic">Diastolic</label>
+              <input type="number" id="diastolic" min="30" max="200" step="1" placeholder="80" required />
+            </div>
+            <div>
+              <label for="pulse">Pulse</label>
+              <input type="number" id="pulse" min="20" max="250" step="1" placeholder="72" required />
+            </div>
+          </div>
+          <div class="form-row">
+            <label for="notes">Notes (optional)</label>
+            <input type="text" id="notes" maxlength="120" placeholder="Morning, after coffee, etc." />
+          </div>
+          <div id="liveCategory" class="category-badge muted">Enter systolic &amp; diastolic</div>
+          <button type="submit" class="btn btn-primary">Save Reading</button>
+        </form>
+      </section>
+
+      <section class="panel">
+        <div class="panel-header">
+          <h2>Daily Trend</h2>
+          <div class="legend-inline" id="chartLegend"></div>
+        </div>
+        <div class="chart-wrap">
+          <canvas id="bpChart" aria-label="Blood pressure and pulse chart"></canvas>
+        </div>
+      </section>
+    </div>
+
+    <section class="panel">
+      <div class="panel-header">
+        <h2>AHA Blood Pressure Categories</h2>
+      </div>
+      <div class="aha-grid" id="ahaLegend"></div>
+      <p class="disclaimer">
+        Categories follow American Heart Association guidelines. This app is for personal tracking only and is not medical advice.
+        If systolic is higher than 180 and/or diastolic is higher than 120, seek emergency care if symptoms are present.
+      </p>
+    </section>
+
+    <section class="panel">
+      <div class="panel-header">
+        <h2>Reading History</h2>
+        <button type="button" id="clearBtn" class="btn btn-danger btn-small">Clear All</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Time</th>
+              <th>BP</th>
+              <th>Pulse</th>
+              <th>Category</th>
+              <th>Notes</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="historyBody">
+            <tr class="empty-row">
+              <td colspan="7">No readings yet. Add a reading or import a CSV file.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+
+  <script>
+const STORAGE_KEY = "bp-recorder-readings-v1";
+
+const AHA_CATEGORIES = [
+  {
+    id: "normal",
+    label: "Normal",
+    color: "#00a651",
+    description: "Less than 120 and less than 80",
+  },
+  {
+    id: "elevated",
+    label: "Elevated",
+    color: "#f6c344",
+    description: "120–129 and less than 80",
+  },
+  {
+    id: "stage1",
+    label: "Stage 1 Hypertension",
+    color: "#f7941d",
+    description: "130–139 or 80–89",
+  },
+  {
+    id: "stage2",
+    label: "Stage 2 Hypertension",
+    color: "#ed1c24",
+    description: "140 or higher or 90 or higher",
+  },
+  {
+    id: "crisis",
+    label: "Hypertensive Crisis",
+    color: "#9b0000",
+    description: "Higher than 180 and/or higher than 120",
+  },
+];
+
+const els = {
+  form: document.getElementById("bpForm"),
+  date: document.getElementById("readingDate"),
+  time: document.getElementById("readingTime"),
+  systolic: document.getElementById("systolic"),
+  diastolic: document.getElementById("diastolic"),
+  pulse: document.getElementById("pulse"),
+  notes: document.getElementById("notes"),
+  liveCategory: document.getElementById("liveCategory"),
+  avgBp: document.getElementById("avgBp"),
+  avgBpCategory: document.getElementById("avgBpCategory"),
+  avgPulse: document.getElementById("avgPulse"),
+  totalReadings: document.getElementById("totalReadings"),
+  dateRange: document.getElementById("dateRange"),
+  historyBody: document.getElementById("historyBody"),
+  ahaLegend: document.getElementById("ahaLegend"),
+  exportBtn: document.getElementById("exportBtn"),
+  importInput: document.getElementById("importInput"),
+  clearBtn: document.getElementById("clearBtn"),
+  chartCanvas: document.getElementById("bpChart"),
+};
+
+let readings = loadReadings();
+let chart;
+
+function classifyBp(systolic, diastolic) {
+  const sys = Number(systolic);
+  const dia = Number(diastolic);
+
+  if (sys > 180 || dia > 120) return AHA_CATEGORIES.find((c) => c.id === "crisis");
+  if (sys >= 140 || dia >= 90) return AHA_CATEGORIES.find((c) => c.id === "stage2");
+  if ((sys >= 130 && sys <= 139) || (dia >= 80 && dia <= 89)) {
+    return AHA_CATEGORIES.find((c) => c.id === "stage1");
+  }
+  if (sys >= 120 && sys <= 129 && dia < 80) {
+    return AHA_CATEGORIES.find((c) => c.id === "elevated");
+  }
+  if (sys < 120 && dia < 80) return AHA_CATEGORIES.find((c) => c.id === "normal");
+
+  // If values fall into mixed buckets, use the higher-risk category.
+  if (sys >= 140 || dia >= 90) return AHA_CATEGORIES.find((c) => c.id === "stage2");
+  if (sys >= 130 || dia >= 80) return AHA_CATEGORIES.find((c) => c.id === "stage1");
+  return AHA_CATEGORIES.find((c) => c.id === "elevated");
+}
+
+function loadReadings() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return [];
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed.sort(sortByDateTimeDesc) : [];
+  } catch {
+    return [];
+  }
+}
+
+function saveReadings() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(readings));
+}
+
+function sortByDateTimeDesc(a, b) {
+  return `${b.date}T${b.time}`.localeCompare(`${a.date}T${a.time}`);
+}
+
+function sortByDateTimeAsc(a, b) {
+  return `${a.date}T${a.time}`.localeCompare(`${b.date}T${b.time}`);
+}
+
+function uid() {
+  return `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
+}
+
+function pad(n) {
+  return String(n).padStart(2, "0");
+}
+
+function setDefaultDateTime() {
+  const now = new Date();
+  els.date.value = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`;
+  els.time.value = `${pad(now.getHours())}:${pad(now.getMinutes())}`;
+}
+
+function showToast(message) {
+  let toast = document.querySelector(".toast");
+  if (!toast) {
+    toast = document.createElement("div");
+    toast.className = "toast";
+    document.body.appendChild(toast);
+  }
+  toast.textContent = message;
+  toast.classList.add("show");
+  clearTimeout(showToast._timer);
+  showToast._timer = setTimeout(() => toast.classList.remove("show"), 2200);
+}
+
+function updateLiveCategory() {
+  const sys = Number(els.systolic.value);
+  const dia = Number(els.diastolic.value);
+
+  if (!els.systolic.value || !els.diastolic.value || Number.isNaN(sys) || Number.isNaN(dia)) {
+    els.liveCategory.textContent = "Enter systolic & diastolic";
+    els.liveCategory.className = "category-badge muted";
+    els.liveCategory.style.background = "";
+    return;
+  }
+
+  const category = classifyBp(sys, dia);
+  els.liveCategory.textContent = category.label;
+  els.liveCategory.className = "category-badge";
+  els.liveCategory.style.background = category.color;
+}
+
+function renderAhaLegend() {
+  els.ahaLegend.innerHTML = AHA_CATEGORIES.map(
+    (cat) => `
+      <div class="aha-card" style="background:${cat.color}">
+        <h3>${cat.label}</h3>
+        <p>${cat.description}</p>
+      </div>
+    `
+  ).join("");
+}
+
+function computeAverages() {
+  if (!readings.length) {
+    return { avgSys: null, avgDia: null, avgPulse: null, category: null };
+  }
+
+  const totals = readings.reduce(
+    (acc, r) => {
+      acc.sys += Number(r.systolic);
+      acc.dia += Number(r.diastolic);
+      acc.pulse += Number(r.pulse);
+      return acc;
+    },
+    { sys: 0, dia: 0, pulse: 0 }
+  );
+
+  const count = readings.length;
+  const avgSys = Math.round(totals.sys / count);
+  const avgDia = Math.round(totals.dia / count);
+  const avgPulse = Math.round(totals.pulse / count);
+
+  return {
+    avgSys,
+    avgDia,
+    avgPulse,
+    category: classifyBp(avgSys, avgDia),
+  };
+}
+
+function groupDailyAverages() {
+  const map = new Map();
+
+  readings.forEach((r) => {
+    if (!map.has(r.date)) {
+      map.set(r.date, { sys: [], dia: [], pulse: [] });
+    }
+    const bucket = map.get(r.date);
+    bucket.sys.push(Number(r.systolic));
+    bucket.dia.push(Number(r.diastolic));
+    bucket.pulse.push(Number(r.pulse));
+  });
+
+  return [...map.entries()]
+    .sort((a, b) => a[0].localeCompare(b[0]))
+    .map(([date, values]) => {
+      const avg = (arr) => Math.round(arr.reduce((s, n) => s + n, 0) / arr.length);
+      return {
+        date,
+        systolic: avg(values.sys),
+        diastolic: avg(values.dia),
+        pulse: avg(values.pulse),
+      };
+    });
+}
+
+function formatDisplayDate(isoDate) {
+  const [y, m, d] = isoDate.split("-").map(Number);
+  return new Date(y, m - 1, d).toLocaleDateString(undefined, {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
+}
+
+function updateStats() {
+  const { avgSys, avgDia, avgPulse, category } = computeAverages();
+
+  els.totalReadings.textContent = String(readings.length);
+
+  if (!readings.length) {
+    els.avgBp.textContent = "—";
+    els.avgBp.style.color = "";
+    els.avgBpCategory.textContent = "No readings yet";
+    els.avgPulse.textContent = "—";
+    els.dateRange.textContent = "Add your first reading";
+    return;
+  }
+
+  els.avgBp.textContent = `${avgSys}/${avgDia}`;
+  els.avgBp.style.color = category.color;
+  els.avgBpCategory.textContent = category.label;
+  els.avgBpCategory.style.color = category.color;
+  els.avgPulse.textContent = String(avgPulse);
+
+  const dates = [...new Set(readings.map((r) => r.date))].sort();
+  if (dates.length === 1) {
+    els.dateRange.textContent = formatDisplayDate(dates[0]);
+  } else {
+    els.dateRange.textContent = `${formatDisplayDate(dates[0])} – ${formatDisplayDate(dates[dates.length - 1])}`;
+  }
+}
+
+function renderHistory() {
+  if (!readings.length) {
+    els.historyBody.innerHTML = `
+      <tr class="empty-row">
+        <td colspan="7">No readings yet. Add a reading or import a CSV file.</td>
+      </tr>
+    `;
+    return;
+  }
+
+  els.historyBody.innerHTML = readings
+    .slice()
+    .sort(sortByDateTimeDesc)
+    .map((r) => {
+      const category = classifyBp(r.systolic, r.diastolic);
+      return `
+        <tr>
+          <td>${formatDisplayDate(r.date)}</td>
+          <td>${r.time}</td>
+          <td><strong>${r.systolic}/${r.diastolic}</strong></td>
+          <td>${r.pulse}</td>
+          <td><span class="category-pill" style="background:${category.color}">${category.label}</span></td>
+          <td>${escapeHtml(r.notes || "")}</td>
+          <td><button type="button" class="delete-btn" data-id="${r.id}">Delete</button></td>
+        </tr>
+      `;
+    })
+    .join("");
+}
+
+function escapeHtml(value) {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;");
+}
+
+function renderChart() {
+  const daily = groupDailyAverages();
+  const labels = daily.map((d) => formatDisplayDate(d.date));
+  const systolic = daily.map((d) => d.systolic);
+  const diastolic = daily.map((d) => d.diastolic);
+  const pulse = daily.map((d) => d.pulse);
+
+  const pointColors = daily.map((d) => classifyBp(d.systolic, d.diastolic).color);
+
+  if (chart) {
+    chart.data.labels = labels;
+    chart.data.datasets[0].data = systolic;
+    chart.data.datasets[0].pointBackgroundColor = pointColors;
+    chart.data.datasets[0].pointBorderColor = pointColors;
+    chart.data.datasets[1].data = diastolic;
+    chart.data.datasets[1].pointBackgroundColor = pointColors;
+    chart.data.datasets[1].pointBorderColor = pointColors;
+    chart.data.datasets[2].data = pulse;
+    chart.update();
+    return;
+  }
+
+  chart = new Chart(els.chartCanvas, {
+    type: "line",
+    data: {
+      labels,
+      datasets: [
+        {
+          label: "Systolic",
+          data: systolic,
+          borderColor: "#ed1c24",
+          backgroundColor: "rgba(237, 28, 36, 0.12)",
+          tension: 0.25,
+          pointRadius: 5,
+          pointBackgroundColor: pointColors,
+          pointBorderColor: pointColors,
+        },
+        {
+          label: "Diastolic",
+          data: diastolic,
+          borderColor: "#f7941d",
+          backgroundColor: "rgba(247, 148, 29, 0.12)",
+          tension: 0.25,
+          pointRadius: 5,
+          pointBackgroundColor: pointColors,
+          pointBorderColor: pointColors,
+        },
+        {
+          label: "Pulse",
+          data: pulse,
+          borderColor: "#0f766e",
+          backgroundColor: "rgba(15, 118, 110, 0.08)",
+          tension: 0.25,
+          pointRadius: 4,
+          borderDash: [5, 4],
+          yAxisID: "y1",
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: {
+        mode: "index",
+        intersect: false,
+      },
+      plugins: {
+        legend: {
+          position: "top",
+        },
+        tooltip: {
+          callbacks: {
+            afterBody(items) {
+              const idx = items[0]?.dataIndex;
+              if (idx == null || !daily[idx]) return "";
+              const day = daily[idx];
+              const category = classifyBp(day.systolic, day.diastolic);
+              return `AHA: ${category.label}`;
+            },
+          },
+        },
+      },
+      scales: {
+        y: {
+          title: { display: true, text: "Blood Pressure (mm Hg)" },
+          suggestedMin: 40,
+          suggestedMax: 200,
+        },
+        y1: {
+          position: "right",
+          title: { display: true, text: "Pulse (bpm)" },
+          grid: { drawOnChartArea: false },
+          suggestedMin: 40,
+          suggestedMax: 140,
+        },
+      },
+    },
+  });
+}
+
+function refreshUi() {
+  updateStats();
+  renderHistory();
+  renderChart();
+}
+
+function validateReading({ systolic, diastolic, pulse, date, time }) {
+  if (!date || !time) return "Date and time are required.";
+  if (![systolic, diastolic, pulse].every((n) => Number.isFinite(n))) {
+    return "Systolic, diastolic, and pulse must be numbers.";
+  }
+  if (systolic < 50 || systolic > 300) return "Systolic must be between 50 and 300.";
+  if (diastolic < 30 || diastolic > 200) return "Diastolic must be between 30 and 200.";
+  if (pulse < 20 || pulse > 250) return "Pulse must be between 20 and 250.";
+  if (diastolic >= systolic) return "Diastolic should be lower than systolic.";
+  return null;
+}
+
+els.form.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  const reading = {
+    id: uid(),
+    date: els.date.value,
+    time: els.time.value,
+    systolic: Number(els.systolic.value),
+    diastolic: Number(els.diastolic.value),
+    pulse: Number(els.pulse.value),
+    notes: els.notes.value.trim(),
+  };
+
+  const error = validateReading(reading);
+  if (error) {
+    showToast(error);
+    return;
+  }
+
+  readings.push(reading);
+  readings.sort(sortByDateTimeDesc);
+  saveReadings();
+  refreshUi();
+
+  els.systolic.value = "";
+  els.diastolic.value = "";
+  els.pulse.value = "";
+  els.notes.value = "";
+  updateLiveCategory();
+  setDefaultDateTime();
+  showToast("Reading saved");
+});
+
+els.historyBody.addEventListener("click", (event) => {
+  const button = event.target.closest(".delete-btn");
+  if (!button) return;
+  const id = button.dataset.id;
+  readings = readings.filter((r) => r.id !== id);
+  saveReadings();
+  refreshUi();
+  showToast("Reading deleted");
+});
+
+els.clearBtn.addEventListener("click", () => {
+  if (!readings.length) return;
+  if (!confirm("Clear all blood pressure readings? This cannot be undone.")) return;
+  readings = [];
+  saveReadings();
+  refreshUi();
+  showToast("All readings cleared");
+});
+
+function toCsv(rows) {
+  const header = ["date", "time", "systolic", "diastolic", "pulse", "notes", "category"];
+  const lines = [header.join(",")];
+
+  rows
+    .slice()
+    .sort(sortByDateTimeAsc)
+    .forEach((r) => {
+      const category = classifyBp(r.systolic, r.diastolic).label;
+      const values = [
+        r.date,
+        r.time,
+        r.systolic,
+        r.diastolic,
+        r.pulse,
+        r.notes || "",
+        category,
+      ].map(csvEscape);
+      lines.push(values.join(","));
+    });
+
+  return lines.join("\n");
+}
+
+function csvEscape(value) {
+  const str = String(value ?? "");
+  if (/[",\n]/.test(str)) {
+    return `"${str.replaceAll('"', '""')}"`;
+  }
+  return str;
+}
+
+function parseCsv(text) {
+  const rows = [];
+  let current = "";
+  let inQuotes = false;
+  const pushCell = (row) => {
+    row.push(current);
+    current = "";
+  };
+  const pushRow = (row) => {
+    if (row.length > 1 || row[0] !== "") rows.push(row);
+  };
+
+  let row = [];
+  for (let i = 0; i < text.length; i += 1) {
+    const char = text[i];
+    const next = text[i + 1];
+
+    if (inQuotes) {
+      if (char === '"' && next === '"') {
+        current += '"';
+        i += 1;
+      } else if (char === '"') {
+        inQuotes = false;
+      } else {
+        current += char;
+      }
+      continue;
+    }
+
+    if (char === '"') {
+      inQuotes = true;
+    } else if (char === ",") {
+      pushCell(row);
+    } else if (char === "\n") {
+      pushCell(row);
+      pushRow(row);
+      row = [];
+    } else if (char === "\r") {
+      // ignore
+    } else {
+      current += char;
+    }
+  }
+
+  pushCell(row);
+  pushRow(row);
+  return rows;
+}
+
+function normalizeHeader(value) {
+  return String(value || "")
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, "_");
+}
+
+function importCsvText(text) {
+  const rows = parseCsv(text.trim());
+  if (rows.length < 2) throw new Error("CSV file has no data rows.");
+
+  const headers = rows[0].map(normalizeHeader);
+  const required = ["date", "systolic", "diastolic", "pulse"];
+  for (const key of required) {
+    if (!headers.includes(key)) {
+      throw new Error(`Missing required column: ${key}`);
+    }
+  }
+
+  const imported = [];
+  for (let i = 1; i < rows.length; i += 1) {
+    const cells = rows[i];
+    if (!cells.length || cells.every((c) => !String(c).trim())) continue;
+
+    const record = Object.fromEntries(headers.map((h, idx) => [h, cells[idx] ?? ""]));
+    const reading = {
+      id: uid(),
+      date: String(record.date).trim(),
+      time: String(record.time || "08:00").trim(),
+      systolic: Number(record.systolic),
+      diastolic: Number(record.diastolic),
+      pulse: Number(record.pulse),
+      notes: String(record.notes || "").trim(),
+    };
+
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(reading.date)) {
+      throw new Error(`Invalid date on row ${i + 1}. Use YYYY-MM-DD.`);
+    }
+    if (!/^\d{2}:\d{2}/.test(reading.time)) {
+      reading.time = "08:00";
+    } else {
+      reading.time = reading.time.slice(0, 5);
+    }
+
+    const error = validateReading(reading);
+    if (error) throw new Error(`Row ${i + 1}: ${error}`);
+    imported.push(reading);
+  }
+
+  if (!imported.length) throw new Error("No valid readings found in CSV.");
+
+  readings = [...readings, ...imported].sort(sortByDateTimeDesc);
+  saveReadings();
+  refreshUi();
+  showToast(`Imported ${imported.length} reading${imported.length === 1 ? "" : "s"}`);
+}
+
+els.exportBtn.addEventListener("click", () => {
+  if (!readings.length) {
+    showToast("No readings to export");
+    return;
+  }
+
+  const csv = toCsv(readings);
+  const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  const stamp = new Date().toISOString().slice(0, 10);
+  link.href = url;
+  link.download = `bp-recorder-${stamp}.csv`;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  URL.revokeObjectURL(url);
+  showToast("CSV exported");
+});
+
+els.importInput.addEventListener("change", async (event) => {
+  const file = event.target.files?.[0];
+  event.target.value = "";
+  if (!file) return;
+
+  try {
+    const text = await file.text();
+    importCsvText(text);
+  } catch (error) {
+    showToast(error.message || "Could not import CSV");
+  }
+});
+
+["input", "change"].forEach((evt) => {
+  els.systolic.addEventListener(evt, updateLiveCategory);
+  els.diastolic.addEventListener(evt, updateLiveCategory);
+});
+
+renderAhaLegend();
+setDefaultDateTime();
+updateLiveCategory();
+refreshUi();
+
+  </script>
+</body>
+</html>

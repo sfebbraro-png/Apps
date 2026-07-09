@@ -49,3 +49,10 @@ Time format: `HH:MM`
 ## Disclaimer
 
 BP Recorder is for personal tracking only and is not medical advice.
+
+## Easiest way to open (no GitHub needed)
+
+Download **`BP-Recorder.html`**, then double-click it.
+
+That single file contains the whole app.
+
