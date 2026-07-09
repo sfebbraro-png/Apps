@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BP Recorder</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <div>
+        <h1>BP Recorder</h1>
+        <p class="subtitle">Track blood pressure &amp; pulse with AHA guidelines</p>
+      </div>
+      <div class="header-actions">
+        <button type="button" id="exportBtn" class="btn btn-secondary">Export CSV</button>
+        <label class="btn btn-secondary file-btn">
+          Import CSV
+          <input type="file" id="importInput" accept=".csv,text/csv" hidden />
+        </label>
+      </div>
+    </header>
+
+    <section class="stats" aria-label="Running averages">
+      <article class="stat-card">
+        <h2>Running Average BP</h2>
+        <p id="avgBp" class="stat-value">—</p>
+        <p id="avgBpCategory" class="stat-meta">No readings yet</p>
+      </article>
+      <article class="stat-card">
+        <h2>Running Average Pulse</h2>
+        <p id="avgPulse" class="stat-value">—</p>
+        <p class="stat-meta">beats per minute</p>
+      </article>
+      <article class="stat-card">
+        <h2>Total Readings</h2>
+        <p id="totalReadings" class="stat-value">0</p>
+        <p id="dateRange" class="stat-meta">Add your first reading</p>
+      </article>
+    </section>
+
+    <div class="main-grid">
+      <section class="panel">
+        <h2>Add Reading</h2>
+        <form id="bpForm" novalidate>
+          <div class="form-row">
+            <label for="readingDate">Date</label>
+            <input type="date" id="readingDate" required />
+          </div>
+          <div class="form-row">
+            <label for="readingTime">Time</label>
+            <input type="time" id="readingTime" required />
+          </div>
+          <div class="form-row triple">
+            <div>
+              <label for="systolic">Systolic</label>
+              <input type="number" id="systolic" min="50" max="300" step="1" placeholder="120" required />
+            </div>
+            <div>
+              <label for="diastolic">Diastolic</label>
+              <input type="number" id="diastolic" min="30" max="200" step="1" placeholder="80" required />
+            </div>
+            <div>
+              <label for="pulse">Pulse</label>
+              <input type="number" id="pulse" min="20" max="250" step="1" placeholder="72" required />
+            </div>
+          </div>
+          <div class="form-row">
+            <label for="notes">Notes (optional)</label>
+            <input type="text" id="notes" maxlength="120" placeholder="Morning, after coffee, etc." />
+          </div>
+          <div id="liveCategory" class="category-badge muted">Enter systolic &amp; diastolic</div>
+          <button type="submit" class="btn btn-primary">Save Reading</button>
+        </form>
+      </section>
+
+      <section class="panel">
+        <div class="panel-header">
+          <h2>Daily Trend</h2>
+          <div class="legend-inline" id="chartLegend"></div>
+        </div>
+        <div class="chart-wrap">
+          <canvas id="bpChart" aria-label="Blood pressure and pulse chart"></canvas>
+        </div>
+      </section>
+    </div>
+
+    <section class="panel">
+      <div class="panel-header">
+        <h2>AHA Blood Pressure Categories</h2>
+      </div>
+      <div class="aha-grid" id="ahaLegend"></div>
+      <p class="disclaimer">
+        Categories follow American Heart Association guidelines. This app is for personal tracking only and is not medical advice.
+        If systolic is higher than 180 and/or diastolic is higher than 120, seek emergency care if symptoms are present.
+      </p>
+    </section>
+
+    <section class="panel">
+      <div class="panel-header">
+        <h2>Reading History</h2>
+        <button type="button" id="clearBtn" class="btn btn-danger btn-small">Clear All</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Time</th>
+              <th>BP</th>
+              <th>Pulse</th>
+              <th>Category</th>
+              <th>Notes</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="historyBody">
+            <tr class="empty-row">
+              <td colspan="7">No readings yet. Add a reading or import a CSV file.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

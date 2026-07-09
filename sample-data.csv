@@ -1,0 +1,8 @@
+date,time,systolic,diastolic,pulse,notes,category
+2026-07-01,08:15,118,76,72,Morning reading,Normal
+2026-07-02,08:05,124,78,74,After coffee,Elevated
+2026-07-03,07:50,132,84,80,,Stage 1 Hypertension
+2026-07-04,08:20,141,91,82,Stressful day,Stage 2 Hypertension
+2026-07-05,08:10,128,79,76,,Elevated
+2026-07-06,07:45,116,74,70,Rested well,Normal
+2026-07-07,08:00,135,88,79,,Stage 1 Hypertension
