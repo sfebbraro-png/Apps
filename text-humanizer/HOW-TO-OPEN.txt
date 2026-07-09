@@ -1,0 +1,14 @@
+Text Humanizer - How to open
+============================
+
+1. Download Text-Humanizer.html
+2. Save it to Desktop or Downloads
+3. Double-click the file
+4. Paste text on the left
+5. Review findings and fixes on the right
+
+Direct raw download link after publish:
+https://raw.githubusercontent.com/sfebbraro-png/Apps/main/Text-Humanizer.html
+
+If the page shows "429 Too Many Requests", wait a minute and try the raw link again,
+or download the repo zip and open Text-Humanizer.html from the unzipped folder.

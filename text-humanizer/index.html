@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Text Humanizer</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <div>
+        <h1>Text Humanizer</h1>
+        <p class="subtitle">
+          Paste text to scan for patterns AI detectors commonly flag, then review fixes.
+        </p>
+      </div>
+      <div class="header-actions">
+        <button type="button" id="sampleBtn" class="btn btn-secondary">Load Sample</button>
+        <button type="button" id="clearBtn" class="btn btn-secondary">Clear</button>
+      </div>
+    </header>
+
+    <section class="score-bar" aria-label="Risk summary">
+      <article class="score-card">
+        <h2>AI Pattern Risk</h2>
+        <p id="riskScore" class="score-value">—</p>
+        <p id="riskLabel" class="score-meta">Paste text to analyze</p>
+      </article>
+      <article class="score-card">
+        <h2>Issues Found</h2>
+        <p id="issueCount" class="score-value">0</p>
+        <p id="issueBreakdown" class="score-meta">No scan yet</p>
+      </article>
+      <article class="score-card">
+        <h2>Burstiness</h2>
+        <p id="burstinessScore" class="score-value">—</p>
+        <p id="burstinessMeta" class="score-meta">Sentence length variation</p>
+      </article>
+      <article class="score-card">
+        <h2>Word Count</h2>
+        <p id="wordCount" class="score-value">0</p>
+        <p id="sentenceCount" class="score-meta">0 sentences</p>
+      </article>
+    </section>
+
+    <div class="main-grid">
+      <section class="panel">
+        <div class="panel-header">
+          <h2>Paste Text</h2>
+          <button type="button" id="analyzeBtn" class="btn btn-primary btn-small">Analyze</button>
+        </div>
+        <textarea
+          id="inputText"
+          placeholder="Paste the text you want to check for AI-like writing patterns..."
+          spellcheck="true"
+        ></textarea>
+        <p class="hint">
+          Analysis runs automatically as you type, and again when you click Analyze.
+        </p>
+      </section>
+
+      <section class="panel findings-panel">
+        <div class="panel-header">
+          <h2>Detector Findings &amp; Fixes</h2>
+          <div class="filter-row">
+            <button type="button" class="chip active" data-filter="all">All</button>
+            <button type="button" class="chip" data-filter="high">High</button>
+            <button type="button" class="chip" data-filter="medium">Medium</button>
+            <button type="button" class="chip" data-filter="low">Low</button>
+          </div>
+        </div>
+        <div id="findingsList" class="findings-list">
+          <div class="empty-state">
+            Paste text on the left. Findings will appear here with what detectors look for and how to correct it.
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <section class="panel">
+      <div class="panel-header">
+        <h2>Criteria Used by AI Detectors</h2>
+      </div>
+      <div class="criteria-grid" id="criteriaGrid"></div>
+      <p class="disclaimer">
+        This app estimates risk from publicly discussed detector signals such as low burstiness,
+        predictable phrasing, AI-favored vocabulary, hedging verbs, formulaic transitions, and vague generality.
+        It is not an official detector score and cannot prove authorship. Use it as a revision checklist.
+      </p>
+    </section>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

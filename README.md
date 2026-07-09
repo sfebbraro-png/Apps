@@ -56,3 +56,12 @@ Download **`BP-Recorder.html`**, then double-click it.
 
 That single file contains the whole app.
 
+
+## Apps in this repo
+
+### BP Recorder
+Blood pressure tracker. Open `BP-Recorder.html`.
+
+### Text Humanizer
+Paste text to find AI-detector patterns and fix suggestions. Open `Text-Humanizer.html`.
+
