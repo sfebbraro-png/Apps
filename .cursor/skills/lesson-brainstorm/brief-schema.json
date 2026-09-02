@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "LessonBrief",
+  "type": "object",
+  "required": [
+    "passage",
+    "big_idea",
+    "key_tension",
+    "group_need",
+    "desired_response",
+    "the_turn",
+    "opening_question",
+    "sticking_point",
+    "supporting_passages",
+    "illustration_idea"
+  ],
+  "properties": {
+    "passage": { "type": "string" },
+    "series": { "type": "string" },
+    "date": { "type": "string" },
+    "teacher_name": { "type": "string" },
+    "big_idea": { "type": "string" },
+    "key_tension": { "type": "string" },
+    "group_need": { "type": "string" },
+    "desired_response": { "type": "string" },
+    "the_turn": { "type": "string" },
+    "opening_question": { "type": "string" },
+    "sticking_point": { "type": "string" },
+    "supporting_passages": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 3,
+      "items": {
+        "type": "object",
+        "required": ["reference", "note"],
+        "properties": {
+          "reference": { "type": "string" },
+          "note": { "type": "string" }
+        }
+      }
+    },
+    "illustration_idea": { "type": "string" }
+  },
+  "additionalProperties": false
+}
