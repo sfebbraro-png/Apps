@@ -1,0 +1,46 @@
+{
+  "passage": "Romans 8:1-11",
+  "date": "2026-09-02",
+  "teacher_name": "Example Teacher",
+  "group_name": "Wednesday Bible Study",
+  "passage_context": "Paul writes to believers in Rome, developing the Spirit-led life after his argument about justification in chapters 1-7.",
+  "historical_background": "Roman Christians lived under imperial power with mixed Jewish and Gentile backgrounds.",
+  "word_studies": [
+    {
+      "english": "condemnation",
+      "transliteration": "katakrisis",
+      "literal_meaning": "a judgment against",
+      "range_of_meaning": "legal verdict, especially final judgment",
+      "translation_comparison": "NIV/ESV/NASB use condemnation; NLT no condemnation; KJV damnation in older sense"
+    }
+  ],
+  "commentary_insights": "Commentators broadly agree that verse 1 crowns the argument of chapter 7; debate centers on the precise force of 'flesh' in verse 3.",
+  "cross_references": [
+    {
+      "reference": "John 3:18",
+      "connection_type": "Thematic connection",
+      "connection": "No condemnation for those in Christ parallels belief that averts judgment.",
+      "read_aloud": true
+    }
+  ],
+  "theological_themes": [
+    {
+      "title": "No condemnation in Christ",
+      "textual_presence": "Verse 1 states the verdict before describing Spirit life.",
+      "practical_implication": "Believers can face guilt without living under a final verdict of rejection."
+    }
+  ],
+  "thinking_prompts": [
+    "What assumption might your group bring about earning God's favor that Paul rejects here?"
+  ],
+  "discussion_starters": [
+    "Read verse 1 aloud. What does 'no condemnation' rule out for someone in Christ?"
+  ],
+  "anticipated_questions": [
+    {
+      "question": "Does this mean Christians never feel guilty?",
+      "answer": "Paul addresses legal verdict, not the conscience; conviction and condemnation are not the same.",
+      "status": "settled"
+    }
+  ]
+}

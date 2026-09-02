@@ -1,0 +1,102 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "LessonResearch",
+  "type": "object",
+  "required": [
+    "passage",
+    "passage_context",
+    "historical_background",
+    "word_studies",
+    "commentary_insights",
+    "cross_references",
+    "theological_themes",
+    "thinking_prompts",
+    "discussion_starters",
+    "anticipated_questions"
+  ],
+  "properties": {
+    "passage": { "type": "string" },
+    "date": { "type": "string" },
+    "teacher_name": { "type": "string" },
+    "group_name": { "type": "string" },
+    "passage_context": { "type": "string" },
+    "historical_background": { "type": "string" },
+    "word_studies": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "english",
+          "transliteration",
+          "literal_meaning",
+          "range_of_meaning",
+          "translation_comparison"
+        ],
+        "properties": {
+          "english": { "type": "string" },
+          "transliteration": { "type": "string" },
+          "literal_meaning": { "type": "string" },
+          "range_of_meaning": { "type": "string" },
+          "translation_comparison": { "type": "string" }
+        }
+      }
+    },
+    "commentary_insights": { "type": "string" },
+    "cross_references": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["reference", "connection_type", "connection", "read_aloud"],
+        "properties": {
+          "reference": { "type": "string" },
+          "connection_type": {
+            "type": "string",
+            "enum": [
+              "Direct parallel",
+              "Thematic connection",
+              "OT background"
+            ]
+          },
+          "connection": { "type": "string" },
+          "read_aloud": { "type": "boolean" }
+        }
+      }
+    },
+    "theological_themes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["title", "textual_presence", "practical_implication"],
+        "properties": {
+          "title": { "type": "string" },
+          "textual_presence": { "type": "string" },
+          "practical_implication": { "type": "string" }
+        }
+      }
+    },
+    "thinking_prompts": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "discussion_starters": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "anticipated_questions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["question", "answer", "status"],
+        "properties": {
+          "question": { "type": "string" },
+          "answer": { "type": "string" },
+          "status": {
+            "type": "string",
+            "enum": ["settled", "disputed", "open"]
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}
