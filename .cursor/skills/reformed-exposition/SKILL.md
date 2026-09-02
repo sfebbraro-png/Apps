@@ -23,7 +23,7 @@ Produces thorough, usable exposition of any Scripture passage from a Reformed (C
 
 Do not trigger this skill for general theology with no specific passage. Ask for a text first.
 
-**Optional:** [teacher-foundation](../teacher-foundation/SKILL.md) when available, for group context and voice settings.
+**Requires:** Read and apply [teacher-foundation](../teacher-foundation/SKILL.md) before producing output (group context, voice settings, theological guardrails).
 
 ## Identity and task
 

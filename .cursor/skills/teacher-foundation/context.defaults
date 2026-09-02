@@ -1,0 +1,10 @@
+# Teacher context defaults
+# Override in conversation or paste a quick-fill block in SKILL.md format.
+
+TEACHER_NAME=Steve
+GROUP_NAME=Bible study
+TRADITION=Presbyterian Reformed
+GROUP_SIZE=12
+SETTING=Small group Bible study
+SESSION_LENGTH=60 minutes
+BIBLE_TRANSLATION=ESV
