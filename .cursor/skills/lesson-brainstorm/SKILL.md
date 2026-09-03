@@ -15,7 +15,7 @@ description: >-
 
 Interactive brainstorming partner for Bible study preparation. Think out loud about this week's study. Walk away with a clear brief.
 
-**Requires:** [teacher-foundation](../teacher-foundation/SKILL.md) skill when available. If it is not installed, ask for the teacher's name once when generating the brief (for the document header only).
+**Requires:** Read and apply [teacher-foundation](../teacher-foundation/SKILL.md) before producing output (theological guardrails, voice, context variables, output standards).
 
 ## What this is
 

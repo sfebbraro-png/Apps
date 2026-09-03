@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# Run: python3 generate-docx.py brief.json [output.docx]
 """Generate a lesson brief .docx from JSON."""
 
 from __future__ import annotations

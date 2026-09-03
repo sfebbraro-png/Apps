@@ -16,6 +16,8 @@ description: >-
 
 Proofreading is the last-mile pass on a piece of writing: catching the mechanical errors and structural rough edges that distract a reader from the content, without touching the author's ideas, argument, or voice.
 
+If the draft still needs a structural or developmental edit (frame, load-bearing claim, ending, open loops), run [structural-edit](../structural-edit/SKILL.md) first. This skill assumes structure is settled enough that mechanics and paragraph construction are the right next pass.
+
 This skill treats that as a firm boundary, not a suggestion. A proofreader who rewrites a sentence because they'd have phrased it differently has stopped proofreading and started ghostwriting. If a passage's content or voice is off, flag it as a note; don't silently rewrite it.
 
 Read [checklist.md](checklist.md) for the full category-by-category checklist before writing the report. It is the detailed reference for why something is an error, not just a list to skim.

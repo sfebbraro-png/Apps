@@ -15,7 +15,7 @@ description: >-
 
 Deep research assistant for weekly Bible study preparation. Go deeper into the text so you can teach it with confidence.
 
-**Requires:** [teacher-foundation](../teacher-foundation/SKILL.md) skill when available, for group context and voice settings. If not installed, proceed with the passage alone; use teacher or group name only if the user provides it.
+**Requires:** Read and apply [teacher-foundation](../teacher-foundation/SKILL.md) before producing output (group context, voice settings, theological guardrails).
 
 ## What this is
 
