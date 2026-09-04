@@ -1,73 +1,87 @@
+---
 name: sparks
-description: "Interview-driven writing workflow that finds the piece before drafting it: interviews the writer question by question, builds a skeleton, then drafts section by section in the writer's voice. Use when Steve starts a new piece from a topic, scripture passage, or bare idea; asks to be interviewed for an article, essay, devotional, or sermon; says 'help me find the piece,' 'interview me,' or 'sparks'; or hands over just a subject with no draft. NOT for existing drafts (structural-edit runs there) and not for finishing passes (proofreading, scripture-check). Runs before all of them."
+description: >-
+  Interview-driven writing workflow that speaks the draft as it goes: interviews
+  the writer question by question while shaping the answers into the article live.
+  Use when Steve starts a new piece from a topic, scripture passage, or bare idea;
+  asks to be interviewed for an article, essay, devotional, or sermon; says 'help
+  me find the piece,' 'interview me,' or 'sparks'; or hands over just a subject
+  with no draft. NOT for existing drafts (structural-edit runs there) and not for
+  finishing passes (proofreading, scripture-check). Runs before all of them.
 ---
 
 # Sparks
 
-Sparks is an interview-first writing workflow. The bet: most writing tools help you write what you already know. This one helps you find what you didn't know you had. Every piece starts as an interview, not a blank page.
+Sparks is an interview-first writing workflow, and the draft is written live during the interview. The bet: most writing tools help you write what you already know. This one helps you find what you didn't know you had. Steve speaks the article; the interview finds it and shapes it as it lands.
 
-Three phases, three files, one folder per piece.
+The interview is also the ordering mechanism. Because each answer responds to one question at a time, the article comes out in order by construction: Steve thinks the piece into shape as he speaks it, instead of dumping a jumbled brainstorm and untangling it afterward.
+
+One pass, three files, one folder per piece.
+
+## Entry points
+
+Sparks starts from a bare subject: a topic, a hunch, a verse reference Steve isn't even sure is the right one. That is the whole input; the interview does the rest.
+
+If Steve arrives with an existing rough draft or a jumbled brainstorm from Obsidian, that is not sparks. The material already exists, so the job is organizing and revising what's there, not interviewing. Don't run the five W's on a finished jumble; shape it directly.
+
+When Steve cites a verse he's unsure about, verify the reference early, before the draft leans on it, then move on. The interview is not a Bible study.
 
 ## Project folder
 
 Each piece gets a folder, default `sparks/<slug>/` under the current working directory unless Steve names another spot. Three files:
 
-- `transcript.md` — the interview. Question, answer, question, answer. Record answers verbatim as they arrive, lightly cleaned for dictation artifacts only; substance never changes. This file is the piece's memory. Reread it before every question and before every drafting move.
-- `skeleton.md` — the shape. Door, movements, turn, landing. An editable document, not a wizard step.
-- `draft.md` — the prose, built section by section.
+- `transcript.md` — the raw log. Question, verbatim answer, question, verbatim answer. Shaping may trim and reorder later, but the original words live here untouched. This is the piece's memory; reread it before every question and before every shaping move.
+- `skeleton.md` — the living outline. Started as soon as the trigger, intent, and audience are named, then updated as sections accumulate. Not a gate.
+- `draft.md` — the article as it's being built, section by section.
 
-If the folder already exists, resume where it left off: read all three files before doing anything. Never start a phase before the previous one is explicitly approved.
+The transcript is append-only. New Q&A blocks go on the end of the file, never inserted or rewritten in place. The safe pattern is to append, not to string-replace inside existing blocks; if an edit to the transcript errors or the file looks scrambled, stop and re-read the whole file, verify the Q&A order against the conversation, and repair by rewriting the full file only if needed. The record matters more than the editing method.
 
-## Phase 1: The Interview
+If the folder already exists, resume where it left off: read all three files before doing anything.
 
-No document, no drafting. One question at a time, plain prose, never a numbered list of questions.
+## The interview-draft loop
+
+One question at a time, plain prose, never a numbered list of questions. After each answer, shape it into article prose on the spot, show the shaped version, then move to the next question unless Steve adjusts.
+
+How shaping works:
+
+- A substantial answer (a paragraph or more) is already article material. Shape it immediately: apply the house rules (no em dashes, contractions whenever possible, no parallel triplets, capitalized deity pronouns), tighten cadence, cut dictation artifacts. Show the shaped prose, then append it to `draft.md` under a working heading.
+- A sparse answer (a few words) is a seed. Build on it: expand what Steve gave into a candidate passage, staying inside his words, and show it for his reaction.
+- Shaping means cadence, order, and house rules. It never means new facts. Use only material from the transcript. Never invent biographical details, numbers, places, or stories. Never resolve a theological question Steve leaves open.
+- Assistant-authored lines get flagged. Shaping goes beyond house-rule cleanup the moment it adds a line Steve didn't say (a coined phrase, a sharpened sentence, an added contrast). That's allowed, but each such line is explicitly flagged as assistant-authored and gets a keep-or-cut decision from Steve before it stays in the draft. Silent insertion is a violation.
+- The verbatim answer goes into `transcript.md` as it lands, before any shaping.
+- After a rejected shaping, offer nothing further on that passage unless asked. Know when to shut up.
 
 Question engine rules:
 
 - Generate every question from the answers already given, never from a static bank.
 - When an answer contains a specific detail (a number, a place, a name, a grievance, a confession), dig there next. Specifics are where the piece lives.
-- Rotate question types: excavation (tell me more about X), tension (you said A but also B), challenge (why does this matter to a reader who isn't you), callback (something from several answers ago).
-- Two to four sentences per question. One question mark per question.
-- Append each answer to transcript.md as it lands.
+- Rotate question types: excavation (tell me more about X), tension (you said A but also B), challenge (why does this matter to the reader you just named), callback (something from several answers ago).
+- The claim objection is mandatory. Once the piece's load-bearing claim becomes visible, the interview isn't finished until its strongest objection has been raised and answered. Ask it as Steve's smartest reader would raise it, and let the answer become a section of the draft. A piece that never faced its best counterargument in the interview will meet it in the comments section instead.
+- If Steve opens with a scripture passage or a topic, the interview still happens. The first questions find the trigger and whether the passage connects to something Steve has actually lived or actually noticed, not whether he can summarize it.
 
-Stop conditions. Stop when you can name three things, and only then:
+## The five W's
 
-1. **The personal door** — the specific story, confession, or scene the piece enters through.
-2. **The tension** — what is actually at stake, what the piece wrestles with.
-3. **The claim** — what the piece will land on.
+The interview's coverage checklist, folded in as questions arise rather than asked in order:
 
-Then show a one-paragraph summary naming all three and ask permission to build the skeleton. Hard cap: about 10 questions. If the cap hits without the three named, say so plainly and ask which one Steve wants to force.
+- **What** — the trigger. The moment, incident, or overheard thing that started the piece. Every piece has one; find it early.
+- **Why** — the intent. Why write it, and what should change in the reader who finishes it.
+- **Who** — the audience. Who the article is for.
+- **When** and **Where** — the context that grounds the trigger in a real time and place.
 
-If Steve opens with a scripture passage or a topic, the interview still happens. The first questions test whether the passage has a personal door in Steve's life, not whether he can summarize it.
+Track coverage as you go. When one is still missing and the draft needs it, ask for it. The old door-tension-claim trio is retired: for a personal piece the door is the trigger, for a teaching or opinion piece there may be no door at all, only a noticing. Either way the five W's carry the load.
 
-## Phase 2: The Skeleton
+## The living outline
 
-Before any prose exists, propose the shape in skeleton.md:
+Start `skeleton.md` as soon as the trigger, intent, and audience are named. Sketch the shape emerging from what's been spoken, then update it as sections accumulate. Reordering is expected and cheap; do it in the outline, not by silently rearranging prose. When all five W's are covered and the landing is visible (the ending knows what it lands on), say so plainly and settle the final draft order.
 
-- **The door** — how the piece opens.
-- **Movements** — each with a one-line job.
-- **The turn** — where it goes and why there.
-- **The landing** — what the reader leaves holding.
-
-Present it, then argue. Structure fights happen here, where changes are cheap. Steve edits directly or by asking; approval of the shape must be explicit, never implied by silence. Apply structural-edit's scrutiny in miniature at this stage: does the shape carry the claim, does the door connect to the landing? Drafting stays locked until the shape is approved.
-
-## Phase 3: The Draft Walk
-
-Draft section by section, following the approved skeleton, in Steve's voice per the steve-voice skill. House rules there are hard constraints here: no em dashes, contractions whenever possible, no parallel triplets, capitalized deity pronouns.
-
-Passenger mode rules:
-
-- Steve writes a section only when he asks. When he drafts, the assistant points at his own material ("the transcript where you said X is the credibility for this section") rather than taking the pen.
-- Suggestions arrive as options (two ways to open, three ways to make the turn), never as silent rewrites. After a rejected suggestion, offer nothing further in that section unless asked. Know when to shut up.
-- When the assistant drafts a section, read steve-voice first and follow it. Use only material from the transcript. Never invent biographical facts, numbers, places, or stories. Never resolve a theological question Steve leaves open.
-- Keep the transcript untouched from this point on.
+The skeleton carries a decisions log as a standing section. Every keep-or-cut call Steve makes during the session lands there: approved lines, settled questions, chosen directions (landing approach, kept phrases, corrections noted). Without it, a resumed session re-litigates settled questions. Append to it as decisions happen, don't reconstruct it from memory.
 
 ## Finishing
 
-When the draft is complete, run the chain in order:
+When the last section is shaped and the order is settled, run the chain in order:
 
-1. **structural-edit** on the full draft. Does the shape hold?
-2. If structure held, a **steve-voice** revision pass. If it didn't, back to the skeleton first.
+1. **structural-edit** on the assembled draft. Does the shape hold?
+2. If structure held, a **steve-voice** revision pass. If it didn't, reorder and reshape first.
 3. **proofreading** report; apply only confirmed fixes.
 4. **scripture-check** on every verse cited.
 5. Offer the standard metadata: title, short description, SEO title, appended to the top of the document if Steve confirms.
@@ -76,11 +90,12 @@ Then the piece is publish-ready and leaves the sparks folder the way Steve's oth
 
 ## What this skill must not do
 
-- Never skip the interview because Steve supplied enough material to draft from. The interview is the product. If he says "skip the interview," record that the door, tension, and claim were asserted rather than found, and move on.
+- Never front-load all questions before drafting. The interview and the draft are the same activity. If Steve asks for a piece to run ask-first-draft-later, honor it as a variant for that piece only.
 - Never ask a list of questions at once.
-- Never write prose during phases 1 and 2.
-- Never silently rewrite anything Steve wrote.
+- Never invent material, ever. Steve's words are the only source.
+- Never apply a shaping silently. Every reshaped passage is shown before it lands in the draft.
+- Never delete or rewrite the transcript. It is the record of what was actually said.
 
 ## Relationship to other skills
 
-Nothing runs upstream; this replaces the blank page. The Codex-built Sparks app prototypes the same workflow, and projects are compatible if it ever writes transcript and skeleton files in this format. Downstream chain, in order: structural-edit, then steve-voice, then proofreading, then scripture-check.
+Nothing runs upstream; this replaces the blank page. Downstream chain, in order: structural-edit, then steve-voice, then proofreading, then scripture-check. The Codex-built Sparks app prototypes the same workflow; projects are compatible if it writes transcript and skeleton files in this format.
