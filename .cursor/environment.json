@@ -4,7 +4,7 @@
   "terminals": [
     {
       "name": "static-server",
-      "command": "python3 -m http.server 8080",
+      "command": "python3 -m http.server 8080 --directory /workspace",
       "description": "Serves the repo's static apps over HTTP. BP Recorder is at http://localhost:8080/ and Text Humanizer is at http://localhost:8080/text-humanizer/."
     }
   ],
