@@ -1,0 +1,14 @@
+{
+  "name": "BP Recorder & Text Humanizer",
+  "install": "python3 --version",
+  "terminals": [
+    {
+      "name": "static-server",
+      "command": "python3 -m http.server 8080",
+      "description": "Serves the repo's static apps over HTTP. BP Recorder is at http://localhost:8080/ and Text Humanizer is at http://localhost:8080/text-humanizer/."
+    }
+  ],
+  "ports": [
+    { "name": "web server", "port": 8080 }
+  ]
+}
